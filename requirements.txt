@@ -1,0 +1,4 @@
+# Análisis: Python para limpieza/profiling y SQL (DuckDB) para el análisis.
+pandas
+duckdb
+jupyter

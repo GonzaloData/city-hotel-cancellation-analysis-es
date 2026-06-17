@@ -1,0 +1,22 @@
+# Datos crudos: no se versionan (descargar según data/raw/README.md).
+# El dataset limpio (data/clean/) sí se publica: licencia CC BY 4.0.
+data/raw/*
+!data/raw/README.md
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporales de Office
+~$*
+.~lock.*
