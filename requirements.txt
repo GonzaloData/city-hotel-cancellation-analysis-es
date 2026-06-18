@@ -2,3 +2,4 @@
 pandas
 duckdb
 jupyter
+jinja2  # requerido por pandas .style (render de tablas) en los notebooks

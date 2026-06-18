@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-Nota sobre los datos: el dataset (data/clean/) procede de "Hotel Booking Demand"
-(Antonio, de Almeida & Nunes, 2019) y se redistribuye bajo licencia CC BY 4.0
-con atribución. La licencia MIT cubre el código y la documentación de este repositorio.
+Nota sobre los datos: el dataset de data/clean/ es una versión modificada (limpiada)
+de "Hotel Booking Demand" (Antonio, de Almeida & Nunes, 2019), redistribuida bajo
+licencia CC BY 4.0 con atribución e indicación de cambios (ver docs/changelog.md y
+data/clean/README.md). La licencia MIT cubre el código y la documentación del repositorio.

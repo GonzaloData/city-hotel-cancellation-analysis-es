@@ -3,15 +3,15 @@
 -- Dataset: data/clean/hotel_bookings_clean.csv  ·  Foco: City Hotel (Lisboa)
 -- Motor: DuckDB
 --
--- Adaptacion a SQL puro de las queries del notebook 03_analyze.ipynb
+-- Adaptación a SQL puro de las queries del notebook 03_analyze.ipynb
 -- (auditadas 2x: pandas vs DuckDB). Ejecutadas y verificadas el 2026-06-16:
 -- todas reproducen las cifras del informe.
 --
--- Ejecucion (CLI DuckDB, desde la carpeta sql/):
+-- Ejecución (CLI DuckDB, desde la carpeta sql/):
 --   duckdb < 04_analyze.sql
 -- Las rutas son relativas a sql/  ->  ../data/clean/...
 --
--- BASE DE REFERENCIA: City Hotel, 53.050 reservas, cancelacion 30,07%
+-- BASE DE REFERENCIA: City Hotel, 53.050 reservas, cancelación 30,07%
 -- ============================================================================
 
 
@@ -32,7 +32,7 @@ SELECT
 
 
 -- ----------------------------------------------------------------------------
--- Q1 · DESCRIPTIVAS — media, mediana, min, max, desv. estandar
+-- Q1 · DESCRIPTIVAS — media, mediana, mín, máx, desv. estándar
 --   Variables clave: lead_time, adr, total_of_special_requests (vista city)
 -- ----------------------------------------------------------------------------
 SELECT 'lead_time' AS variable,
@@ -56,14 +56,14 @@ SELECT 'special_requests',
        ROUND(STDDEV(total_of_special_requests), 2)
 FROM city;
 
--- Tasa de cancelacion global de la vista city (= 30,07 %)
+-- Tasa de cancelación global de la vista city (= 30,07 %)
 SELECT ROUND(AVG(is_canceled) * 100, 2) AS cancel_rate_pct
 FROM city;
 
 
 -- ----------------------------------------------------------------------------
--- Q2 · P1 — cancelacion por MES, desglosada por anio
---   Hallazgo: estacionalidad debil; solo abril estable sobre base
+-- Q2 · P1 — cancelación por MES, desglosada por año
+--   Hallazgo: estacionalidad débil; solo abril estable sobre base
 --   (2016 = 31,1 % , 2017 = 37,5 %). March 2016 = 27,3 , October 2016 = 31,8.
 -- ----------------------------------------------------------------------------
 SELECT
@@ -86,7 +86,7 @@ END;
 
 -- ----------------------------------------------------------------------------
 -- Q3 · P2 — cancel rate por TRAMO de lead_time
---   Hallazgo: monotonico 10,51 % (0-7) -> 44,87 % (180+). Umbral de corte: 90+.
+--   Hallazgo: monotónico 10,51 % (0-7) -> 44,87 % (180+). Umbral de corte: 90+.
 -- ----------------------------------------------------------------------------
 SELECT
     CASE
@@ -165,8 +165,8 @@ GROUP BY grupo;
 
 -- ----------------------------------------------------------------------------
 -- Q8 · P4a — cancel rate por deposit_type
---   Hallazgo: Non Refund = 97,16 % (n=844, 1,6 % de reservas) = SELECCION,
---   no causalidad (se confirma en Q9 y Q9b).
+--   Hallazgo: Non Refund = 97,16 % (n=844, 1,6 % de reservas) = SELECCIÓN,
+--   no causalidad (se confirma en Q9 y Q8b).
 -- ----------------------------------------------------------------------------
 SELECT
     deposit_type,
@@ -179,8 +179,8 @@ ORDER BY cancel_rate_pct DESC;
 
 
 -- ----------------------------------------------------------------------------
--- Q8b · P4a (cruce) — deposit_type x market_segment: ¿quien usa cada deposito?
---   Soporta la lectura de seleccion: las Non Refund son 91 % Groups + Offline TA/TO.
+-- Q8b · P4a (cruce) — deposit_type x market_segment: ¿quien usa cada depósito?
+--   Soporta la lectura de selección: las Non Refund son 91 % Groups + Offline TA/TO.
 -- ----------------------------------------------------------------------------
 SELECT
     deposit_type,
@@ -195,8 +195,8 @@ ORDER BY deposit_type, reservas DESC;
 
 
 -- ----------------------------------------------------------------------------
--- Q9 · P4b — antelacion por deposit_type
---   Hallazgo: Non Refund mediana 198,5 d vs ~49 d el resto -> no es el deposito,
+-- Q9 · P4b — antelación por deposit_type
+--   Hallazgo: Non Refund mediana 198,5 d vs ~49 d el resto -> no es el depósito,
 --   es que son reservas de mucho lead time.
 -- ----------------------------------------------------------------------------
 SELECT
@@ -211,7 +211,7 @@ ORDER BY lead_time_medio DESC;
 
 -- ----------------------------------------------------------------------------
 -- Q10 · P5a — cancel rate por CUARTIL de ADR (NTILE 4)
---   Hallazgo: debil, 23,33 % -> 34,76 % del cuartil 1 al 4.
+--   Hallazgo: débil, 23,33 % -> 34,76 % del cuartil 1 al 4.
 --   (Nota: empates en NTILE -> reproducibilidad ±0,1pp.)
 -- ----------------------------------------------------------------------------
 WITH q AS (
@@ -315,7 +315,7 @@ ORDER BY cancelaciones_previas, reservas DESC;
 
 -- ----------------------------------------------------------------------------
 -- Q15 · CRUCE DE MAXIMO RIESGO — Online TA x lead_time > 90  (TITULAR Fase 5)
---   Hallazgo: 44,70 % de cancelacion (3,1x el suelo 14,37 %), 23 % del volumen
+--   Hallazgo: 44,70 % de cancelación (3,1x el suelo 14,37 %), 23 % del volumen
 --   y 34 % de TODAS las cancelaciones. Las senales se POTENCIAN, no se suman.
 -- ----------------------------------------------------------------------------
 SELECT
@@ -328,4 +328,4 @@ SELECT
 FROM city
 WHERE market_segment IS NOT NULL
 GROUP BY grupo
-ORDER BY cancel_r
+ORDER BY cancel_rate_pct DESC;

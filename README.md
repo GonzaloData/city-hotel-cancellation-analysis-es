@@ -19,7 +19,7 @@ Identificar los factores que más influyen en la cancelación de reservas del Ci
 - **Fuente:** [Hotel Booking Demand](https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand) (Kaggle) — licencia **CC BY 4.0**. Datos originales: Antonio, de Almeida & Nunes (2019), *Data in Brief*.
 - **Periodo y tamaño:** jul 2015 – ago 2017 · 119.390 reservas → **86.999 tras la limpieza** · 53.050 del City Hotel.
 - El **City Hotel** es un hotel urbano de **Lisboa** (ubicación del artículo de origen, no del CSV).
-- Diccionario de columnas y limitaciones en [`docs/data_dictionary.md`](docs/data_dictionary.md). El CSV limpio está incluido en `data/clean/`; los datos crudos no se versionan (ver [`data/raw/README.md`](data/raw/README.md)).
+- Diccionario de columnas y limitaciones en [`docs/data_dictionary.md`](docs/data_dictionary.md). El CSV limpio (en `data/clean/`) es una **versión modificada** del original —limpieza en [`docs/changelog.md`](docs/changelog.md) y atribución en [`data/clean/README.md`](data/clean/README.md)—; los datos crudos no se versionan (ver [`data/raw/README.md`](data/raw/README.md)).
 
 ## Método (Ask → Act)
 
@@ -60,7 +60,7 @@ Base de referencia: **City Hotel, 53.050 reservas, 30,07 % de cancelación**.
 │   ├── 02_process.ipynb         # limpieza
 │   └── 03_analyze.ipynb         # análisis (SQL/DuckDB)
 ├── sql/
-│   └── 04_analyze.sql           # las 18 queries del análisis, en SQL puro
+│   └── 04_analyze.sql           # 18 consultas (Q0–Q15 + sub-análisis Q8b, Q13b)
 ├── docs/
 │   ├── business_task.md
 │   ├── data_dictionary.md
@@ -83,6 +83,10 @@ El CSV limpio ya está en `data/clean/`, así que basta con abrir y ejecutar `no
 ## Limitaciones
 
 Un solo hotel urbano (City Hotel, Lisboa) · 26 meses (jul 2015 – ago 2017), datos pre-COVID · análisis de asociación, no de causalidad · Non Refund no evaluable causalmente (selección de muestra) · ADR como proxy de precio.
+
+## Licencia
+
+El **código y la documentación** de este repositorio se publican bajo licencia **MIT** (ver [`LICENSE`](LICENSE)). El **dataset** `data/clean/hotel_bookings_clean.csv` **no** está cubierto por MIT: es un derivado de *Hotel Booking Demand* y se redistribuye bajo **CC BY 4.0** con atribución e indicación de cambios (ver [`data/clean/README.md`](data/clean/README.md)).
 
 ## Autor
 

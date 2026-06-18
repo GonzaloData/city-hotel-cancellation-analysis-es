@@ -25,13 +25,13 @@ Identificar los factores que más influyen en la cancelación de reservas del Ci
 | 1 | ¿Qué tasa de cancelación hay y cómo varía por mes? | Dónde reforzar overbooking / políticas | % de `is_canceled` | `is_canceled`, `arrival_date_month` |
 | 2 | ¿La antelación (lead time) predice la cancelación? | Cuándo pedir garantía / depósito | cancel rate por tramo | `lead_time`, `is_canceled` |
 | 3 | ¿Qué segmento o canal cancela más? | Dónde ajustar condiciones por canal | cancel rate por grupo | `market_segment`, `distribution_channel` |
-| 4 | ¿El depósito reduce las cancelaciones? | Si exigir depósito | cancel rate por tipo | `deposit_type` |
+| 4 | ¿El tipo de depósito se asocia a la cancelación? | Si condicionar la garantía según el riesgo | cancel rate por tipo | `deposit_type` |
 | 5 | ¿El precio (ADR) o las peticiones especiales se relacionan con cancelar? | Pricing / detección de riesgo | cancel rate por tramo | `adr`, `total_of_special_requests` |
 | 6 | ¿Las señales de cliente (repeat guest, cancelaciones previas) predicen la cancelación? | A quién priorizar / exigir garantía | cancel rate por grupo | `is_repeated_guest`, `previous_cancellations` |
 
 > La pregunta 6 se formalizó durante la fase de análisis a partir del alcance de «señales de cliente»; por eso el análisis, la presentación y las recomendaciones hablan de 6 preguntas.
 
-Cada pregunta se responde en el notebook `03_analyze.ipynb` y en `sql/04_analyze.sql` (queries Q1–Q15).
+Cada pregunta se responde en el notebook `03_analyze.ipynb` y en `sql/04_analyze.sql` (18 consultas: Q0–Q15, con sub-análisis Q8b y Q13b).
 
 ## Métricas de éxito
 

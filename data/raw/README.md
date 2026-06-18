@@ -16,6 +16,10 @@ Solo necesitas el CSV original si quieres regenerar la limpieza desde cero
 > Antonio, N., de Almeida, A., & Nunes, L. (2019). *Hotel booking demand datasets*.
 > Data in Brief, 22, 41–49. https://doi.org/10.1016/j.dib.2018.11.126
 
+## Cambios respecto al original (CC BY 4.0)
+
+El CSV derivado `../clean/hotel_bookings_clean.csv` es una **versión modificada** del original (limpieza: duplicados, outliers, nulos, tipos y eliminación de `company`; 119.390 → 86.999 filas). Detalle en [`../../docs/changelog.md`](../../docs/changelog.md). CC BY 4.0 exige indicar los cambios, de ahí esta nota.
+
 El **City Hotel** es un hotel urbano de **Lisboa** (el Resort Hotel del dataset está en el
 **Algarve**). Esta ubicación procede del artículo de origen, no del CSV: la columna `country`
 es la nacionalidad del huésped, no la ubicación del hotel.

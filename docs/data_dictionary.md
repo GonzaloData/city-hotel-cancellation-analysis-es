@@ -2,6 +2,8 @@
 
 Ficha del dataset usado en el análisis: fuente, licencia, diccionario de columnas y limitaciones conocidas.
 
+> **Alcance de este diccionario.** Describe el **esquema del dataset original** (32 columnas). El CSV de `data/clean/` es una **versión modificada (limpiada)**: se eliminó la columna `company` y se trataron los valores `"Undefined"`/NaN, entre otros cambios. Los conteos de nulos, «Undefined» y outliers de más abajo reflejan el estado **original** (profiling de la Fase 2); el detalle del tratamiento está en [`changelog.md`](changelog.md).
+
 ## Fuente
 
 | Campo | Detalle |
@@ -10,7 +12,8 @@ Ficha del dataset usado en el análisis: fuente, licencia, diccionario de column
 | Origen | Kaggle (autor: Jesse Mostipak). Datos originales: Antonio, de Almeida & Nunes (2019), *Data in Brief* |
 | URL | https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand |
 | Licencia | CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/ |
-| Periodo | 01/07/2015 – 14/09/2017 |
+| Periodo (fecha de llegada) | jul 2015 – ago 2017 |
+| Rango de `reservation_status_date` | oct 2014 – sep 2017 |
 | Tamaño original | 119.390 filas × 32 columnas |
 | Tamaño tras limpieza | 86.999 filas (ver `changelog.md`) |
 | Variable objetivo | `is_canceled` |
@@ -49,7 +52,7 @@ Los valores categóricos son los reales del dataset (obtenidos con `value_counts
 | `booking_changes` | int | Nº de cambios en la reserva | entero ≥ 0 |
 | `deposit_type` | str | Tipo de depósito | No Deposit, Non Refund, Refundable |
 | `agent` | float | ID de la agencia | ID numérico (tiene NaN) |
-| `company` | float | ID de la empresa | ID numérico (muchos NaN) |
+| `company` | float | ID de la empresa (solo en el dataset **original**) | **Eliminada en la limpieza** (94 % NaN); no está en `data/clean/` |
 | `days_in_waiting_list` | int | Días en lista de espera | entero ≥ 0 |
 | `customer_type` | str | Tipo de cliente | Transient, Transient-Party, Contract, Group |
 | `adr` | float | Tarifa media diaria (Average Daily Rate) | decimal (tiene un mínimo negativo) |
@@ -59,6 +62,8 @@ Los valores categóricos son los reales del dataset (obtenidos con `value_counts
 | `reservation_status_date` | str | Fecha del último estado | YYYY-MM-DD (es texto; se convierte a fecha en la Fase 3) |
 
 ## Valores faltantes y limitaciones
+
+> Los conteos de esta sección reflejan el **dataset original** (profiling de la Fase 2). El CSV limpio ya **no** contiene estos problemas; ver el tratamiento en [`changelog.md`](changelog.md).
 
 ### Nulos reales (NaN)
 `company` 112.593 (94,3 %) · `agent` 16.340 (13,7 %) · `country` 488 (0,4 %) · `children` 4 (~0 %).
